@@ -1,0 +1,58 @@
+scenar1 sum of prcp = 
+
+-- scenar1: I respect the filters of the visual; I don't remove any, nor do I add any. I use basic aggregation functions.
+-- such as  SUM(),MIN()
+SUM(data[prcp])
+
+__________________________
+
+scenario2 sum of prcp ruzyne = 
+-- total precipitation in the given year at the RUZYNE location
+
+-- scenario2: I respect the filters of the visual and set additional ones, i.e., I use a combination of functions
+-- SUMX(FILTER()), MINX(FILTER()), MAXX(FILTER()) etc.
+
+SUMX(
+    --step3: FILTER() returns a table
+    FILTER(
+    --step1: FILTER() takes the data table with all its filters.
+        data,
+    --step2: The FILTER() function sets a filter on the column location
+    data[location] = "RUZYNE"),
+    --step4: The SUMX() function aggregates the precipitation column of the table returned by the FILTER() function.
+    data[prcp])
+    
+    ___________________________________
+    
+scenario3 precipitation all years =
+
+-- scenario3: I remove the filters of the visual, I don't set any, i.e., I use a combination of functions
+-- SUMX(ALL()), MINX(ALL()) etc.
+
+SUMX(
+--step1: The ALL() function creates a copy of the data table with all its values,
+-- i.e., the table is not filtered.
+    ALL(data),
+--step2: The SUMX() function sums the precipitation column of the table returned by the ALL() function.
+data[prcp])
+
+_________________________________________________
+
+
+scenario4 precipitation for the year 2000 =
+
+-- scenario4: I remove the filters of the visual and set my own, I use a combination of functions
+-- SUMX(FILTER(ALL())), MINX(FILTER(ALL())) etc.
+
+SUMX(
+    --step3: The FILTER() function returns a table.
+    FILTER(
+    -- step1: The ALL() function creates a copy of the data table stripped of all filters.
+        ALL(data),
+    --step2: The FILTER() function sets a filter on the year column of the table returned by the ALL() function.
+    data[year] = 2000),
+
+--step4: The SUMX() function aggregates the precipitation column of the table returned by the FILTER() function.
+data[prcp])
+
+_______________________________
