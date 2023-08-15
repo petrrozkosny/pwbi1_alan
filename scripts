@@ -24,3 +24,25 @@ SUMX(
     && data[year] = SELECTEDVALUE(data[year]) - 1
     && data[month] <= SELECTEDVALUE(data[month])),
 data[prcp])
+
+________________________________________________
+
+11 temperature check = 
+-- has a given location been the hottest one (the one with max of max_temperature)
+-- has a given location been the coldest one (the one with min of min_temperature)
+IF(
+    -- max temperature for a given location
+MAX(data[maximum_temperature]) 
+=
+    -- max temperature across all locations
+MAXX(
+            ALL(data),
+data[maximum_temperature]),"YES","NO")
+&"|"&
+if(
+    MIN(data[minimum_temperature])
+     = 
+    MINX(
+        ALL(data),
+    data[minimum_temperature]),"YES","NO")
+
