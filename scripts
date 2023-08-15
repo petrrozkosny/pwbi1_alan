@@ -1,2 +1,15 @@
 01 sum of prcp = sum(data[prcp])
 _______________________________________-
+
+
+02 prcp yoy = 
+
+SUMX(
+    FILTER(
+    ALL(data),
+    data[year] = SELECTEDVALUE(data[year]) - 1
+    && data[month] = SELECTEDVALUE(data[month])
+    && data[location] = SELECTEDVALUE(data[location])),
+data[prcp])
+
+
