@@ -13,3 +13,14 @@ SUMX(
 data[prcp])
 
 
+_____________________________________________-
+
+04 prcp ytd previous year = 
+
+SUMX(
+    FILTER(
+        ALL(data),
+    data[location] = SELECTEDVALUE(data[location])
+    && data[year] = SELECTEDVALUE(data[year]) - 1
+    && data[month] <= SELECTEDVALUE(data[month])),
+data[prcp])
