@@ -46,3 +46,21 @@ if(
         ALL(data),
     data[minimum_temperature]),"YES","NO")
 
+_______________________________________
+
+15 pct of rainy days in winter = 
+-- in a give location
+-- count of days with prcp >0 in months 11,12,1,2
+COUNTX(
+    FILTER(data,
+    data[month] IN {1,2,11,12}
+    && data[prcp] > 0),
+data[date])
+/
+-- count of days in months, 11,12,1,2
+COUNTX(
+    FILTER(data,
+    data[month] <=2
+    || data[month]>=11),
+data[date])
+
