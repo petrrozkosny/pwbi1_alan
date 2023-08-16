@@ -64,3 +64,19 @@ COUNTX(
     || data[month]>=11),
 data[date])
 
+__________________________________
+
+17 cond. formatting pivot table = 
+IF(
+-- max of max_temperature for a given
+-- year,month, location
+MAX(data[maximum_temperature])
+=
+-- max of max_temperature for a given month, location
+MAXX(
+FILTER(
+    ALL(data),
+data[location] = SELECTEDVALUE(data[location])
+&& data[month] = SELECTEDVALUE(data[month])),
+data[maximum_temperature]),
+"gold")
