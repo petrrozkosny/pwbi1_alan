@@ -91,3 +91,39 @@ MAXX(
 ALL(data[year]),
 CALCULATE(AVERAGE(data[maximum_temperature]))),
 "CYAN")
+
+___________________________________________
+
+month_type = 
+--table
+
+VAR month_of_today = MONTH(TODAY())
+RETURN
+ADDCOLUMNS(
+UNION(
+SELECTCOLUMNS(GENERATESERIES(1,12,1),"month_type",[Value]),
+ROW("month","budget total")),
+
+"month_sorting",
+IFERROR(
+SWITCH(TRUE(),
+CONVERT([month_type],INTEGER)<month_of_today,CONVERT([month_type],INTEGER),
+CONVERT([month_type],INTEGER)>=month_of_today,CONVERT([month_type],INTEGER)+100,
+CONVERT([month_type],INTEGER))
+,month_of_today))
+
+_______________________________
+
+20 sum of prcp by month type = 
+--measure
+
+IF(
+    SELECTEDVALUE(month_type[month_type])<>"budget total",
+    SUMX(
+        FILTER(data,
+        data[month] = CONVERT(SELECTEDVALUE(month_type[month_type]),INTEGER)),
+    data[prcp]),
+    SUMX(
+        FILTER(data,
+        data[month]<MONTH(TODAY())),
+    data[prcp]))
