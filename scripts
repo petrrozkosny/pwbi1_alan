@@ -80,3 +80,14 @@ data[location] = SELECTEDVALUE(data[location])
 && data[month] = SELECTEDVALUE(data[month])),
 data[maximum_temperature]),
 "gold")
+
+
+__________________________________________
+
+18 max of average = 
+
+IF(AVERAGE(data[maximum_temperature]) = 
+MAXX(
+ALL(data[year]),
+CALCULATE(AVERAGE(data[maximum_temperature]))),
+"CYAN")
