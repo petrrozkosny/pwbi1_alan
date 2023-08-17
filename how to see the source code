@@ -1,0 +1,14 @@
+A way how to see measures' definitions:
+
+
+Open a .pbix file in PowerBI Desktop
+Save as Template .pbit
+Change the file extension to from .pbit to .zip
+Open DataModelSchema in a text editor.
+Extract the schema
+Measures can be found in: model.tables.measures
+
+Columns can be found in: model.tables.columns
+
+Calculated Columns can be found in: model.tables.columns by filtering calculated = true
+  
